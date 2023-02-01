@@ -1,0 +1,26 @@
+html {
+  font-size: 10px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 10px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+table thead {
+  color: blue;
+  background-color: chocolate;
+  border-radius: 0px;
+  border:1px solid black;
+}
+

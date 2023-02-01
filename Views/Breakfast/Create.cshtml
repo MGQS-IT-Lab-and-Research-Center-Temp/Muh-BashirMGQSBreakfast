@@ -1,0 +1,31 @@
+@model MGQSBreakfast.Entities.Breakfast
+@{
+    ViewData["Title"] = "Create Breakfast";
+}
+<h1>@ViewData["Title"]</h1>
+
+@using (Html.BeginForm("Create", "Create Breakfast", FormMethod.Post))
+{
+    <div class="container">
+        <div class="form-group">
+            <label for="">Name</label>
+            @Html.TextAreaFor(x => x.Name, new { @class="form-control"})
+        </div>
+        <div class="form-group">
+            <label for="">Description</label>
+            @Html.TextAreaFor(x => x.Description, new { @class="form-control"})
+        </div>
+        <div class="form-group">
+            <label for="">StartDateTime</label>
+            @Html.TextAreaFor(x => x.StartDateTime, new { @class="form-control"})
+        </div>
+        <div class="form-group">
+            <label for="">EndDateTime</label>
+            @Html.TextAreaFor(x => x.EndDateTime, new { @class="form-control"})
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-danger">Cancel</button>
+        </div>
+    </div>
+}

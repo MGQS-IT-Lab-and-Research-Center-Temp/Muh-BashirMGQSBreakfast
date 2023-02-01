@@ -1,0 +1,30 @@
+@model IEnumerable<MGQSBreakfast.Entities.Breakfast>
+@{
+    ViewData["Title"] = "Breakfast List";
+}
+
+<h2>Breakfasts</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+        </tr>
+    </thead>
+    <tbody>   
+        <tr>
+        @foreach (var item in Model)
+        {
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@item.Description</td>
+            <td>@item.StartDateTime</td>
+            <td>@item.EndDateTime</td>
+        }
+        </tr>
+    </tbody>   
+</table>
