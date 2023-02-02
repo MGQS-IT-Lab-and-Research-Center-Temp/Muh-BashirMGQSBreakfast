@@ -12,7 +12,7 @@ namespace MGQSBreakfast.Implementation.Repository
     public class BreakfastRepository : IBreakfastRepository
     {
         private readonly ApplicationDbContext  _context;
-        public BreakfastRepository(ApplicationDbContext context) 
+        private BreakfastRepository(ApplicationDbContext context) 
         {
             _context = context;
         }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MGQSBreakfast.Models;
 using MGQSBreakfast.Context;
 using MGQSBreakfast.Entities;
+using MGQSBreakfast.Implementation.Repository;
 
 namespace MGQSBreakfast.Controllers;
 
@@ -30,16 +31,20 @@ public class BreakfastController : Controller
 
     public IActionResult Create(Breakfast breakfast)
     {
-        var obj = new Breakfast();
-        obj.Name = breakfast.Name;
-        obj.Description = breakfast.Description;
-        obj.StartDateTime = breakfast.StartDateTime;
-        obj.EndDateTime = breakfast.EndDateTime;
-        _context.Breakfasts.Add(obj);
-        _context.SaveChanges();
-        return View();
+        if (ModelState.IsValid)
+        {
+            var obj = new Breakfast();
+            obj.Name = breakfast.Name;
+            obj.Description = breakfast.Description;
+            obj.StartDateTime = breakfast.StartDateTime;
+            obj.EndDateTime = breakfast.EndDateTime;
+            _context.Breakfasts.Add(obj);
+            _context.SaveChanges();
+        }
+        ModelState.Clear();
+        return View("Create");
     }
-    
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
