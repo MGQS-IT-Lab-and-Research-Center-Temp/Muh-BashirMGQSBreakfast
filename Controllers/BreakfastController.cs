@@ -41,7 +41,7 @@ public class BreakfastController : Controller
             _context.Breakfasts.Add(obj);
             _context.SaveChanges();
         }
-        ModelState.Clear();
+        //ModelState.Clear();
         return View("Create");
     }
 
