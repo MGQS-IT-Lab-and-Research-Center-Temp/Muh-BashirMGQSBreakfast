@@ -3,30 +3,33 @@
     ViewData["Title"] = "Breakfast List";
 }
 
-<h2>Breakfasts</h2>
-
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Start Time</th>
-            <th>End Time</th>
-        </tr>
-    </thead>
-    <tbody>   
-        <tr>
-        @foreach (var item in Model)
-        {
-            <td>@item.Id</td>
-            <td>@item.Name</td>
-            <td>@item.Description</td>
-            <td>@item.StartDateTime</td>
-            <td>@item.EndDateTime</td>
-        }
-        </tr>
-    </tbody>   
-    
-</table>
-<a class="nav-link text-dark" asp-area="" asp-controller="Breakfast" asp-action="Create">Create new breakfast</a>
+<div class="row">
+    <div class="col-md-8">
+        <table class="table table-danger table-striped">
+            <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>Name</td>
+                    <td>Details</td>
+                    <td>Update</td>
+                    <td>Delete</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var breakfast in Model)
+                {
+                    <tr>
+                        <td>@breakfast.Id</td>
+                        <td>@breakfast.Name</td>
+                        <td><a asp-controller="Breakfast" asp-action="Details" asp-route-id="@breakfast.Id">View Details</a></td>
+                        <td><a asp-controller="Breakfast" asp-action="Update" asp-route-id="@breakfast.Id">Update</a></td>
+                        <td><a asp-controller="Breakfast" asp-action="DeleteBreakFast" asp-route-id ="@breakfast.Id">Delete</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <span > 
+            <a asp-action="Create">Create breakfast</a>
+        </span>
+    </div>
+</div>

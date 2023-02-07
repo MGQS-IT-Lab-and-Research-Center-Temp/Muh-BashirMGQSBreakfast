@@ -12,7 +12,6 @@ namespace MGQSBreakfast.Contracts.Repositories
         Breakfast Create(Breakfast breakfast);
         Breakfast GetById(int id);
         List<Breakfast> GetAll();
-        Breakfast FindBreakFast(int id);
         Breakfast Update(int id);
         bool Delete(int id);
         bool BreakFastExist(int id);

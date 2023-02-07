@@ -1,6 +1,10 @@
 using System;
 using System.Buffers;
 using System.Collections.Immutable;
+using MGQSBreakfast.Contracts.Repositories;
+using MGQSBreakfast.Contracts.Services;
+using MGQSBreakfast.Implementations.Service;
+using MGQSBreakfast.Implementation.Repository;
 using Microsoft.EntityFrameworkCore;
 using MGQSBreakfast.Context;
 
@@ -14,6 +18,8 @@ namespace MGQSBreakfast
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<IBreakfastRepository, BreakfastRepository>();
+            builder.Services.AddScoped<IBreakfastService, BreaskfastService>();
 
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseMySQL(builder.Configuration.GetConnectionString("ApplicationDbContext")));
 

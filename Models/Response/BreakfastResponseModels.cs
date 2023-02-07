@@ -6,8 +6,8 @@ using MGQSBreakfast.Entities;
 
 namespace MGQSBreakfast.Models.Response
 {
-    public class BreakfastResponseModel : BaseResponseModel
+    public class BreakfastResponseModels : BaseResponseModel
     {
-        public CreateBreakfastViewModel Data { get; set; }
+        public List<Breakfast> Data { get; set; }
     }
 }

@@ -2,53 +2,96 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using MGQSBreakfast.Models;
 using MGQSBreakfast.Context;
+using MGQSBreakfast.Contracts.Repositories;
 using MGQSBreakfast.Entities;
 using MGQSBreakfast.Implementation.Repository;
+using MGQSBreakfast.Contracts.Services;
 
 namespace MGQSBreakfast.Controllers;
 
 public class BreakfastController : Controller
 {
-    private readonly ILogger<BreakfastController> _logger;
-    private readonly ApplicationDbContext _context;
-
-    public BreakfastController(ILogger<BreakfastController> logger, ApplicationDbContext context)
+    private readonly IBreakfastService _breakfastservice;
+    public BreakfastController(IBreakfastService breakfastService)
     {
-        _logger = logger;
-        _context = context;
+        _breakfastservice = breakfastService;
     }
-
+    // GET: BreakfastController
     public IActionResult GetAll()
     {
-        var breakfasts = _context.Breakfasts.ToList();
-        return View(breakfasts);
+        var breakfast = _breakfastservice.GetAllBreakfast();
+        return View(breakfast.Data);
+
     }
 
-    public IActionResult Breakfast()
+    // GET: BreakfastController/Details/5
+    public IActionResult Details(int id)
+    {
+        var breakfast = _breakfastservice.GetBreakfast(id);
+        if (breakfast.Status == false)
+        {
+            ViewBag.Message = breakfast.Message;
+            return View();
+        }
+        return View(breakfast.Data);
+    }
+
+    // GET: BreakfastController/Create
+    public IActionResult Create()
+    {
+        return View();
+    }
+  
+    [HttpPost]
+    public IActionResult Create(CreateBreakfastViewModel breakfast)
+    {
+        var breakfasts = _breakfastservice.CreateBreakfast(breakfast);
+        if (breakfasts.Status == false)
+        {
+            ViewBag.Message = breakfasts.Message;
+            return View();
+        }
+        return RedirectToAction("Index");
+
+    }
+
+    // GET: BreakfastController/Edit/5
+    public IActionResult Update()
     {
         return View();
     }
 
-    public IActionResult Create(Breakfast breakfast)
+    [HttpPost]
+    public IActionResult Update(int id, UpdateBreakfastViewModel updateBreakfastDTO)
     {
-        if (ModelState.IsValid)
+        var breakfast = _breakfastservice.UpdateBreakfast(id, updateBreakfastDTO);
+        if (breakfast.Status == false)
         {
-            var obj = new Breakfast();
-            obj.Name = breakfast.Name;
-            obj.Description = breakfast.Description;
-            obj.StartDateTime = breakfast.StartDateTime;
-            obj.EndDateTime = breakfast.EndDateTime;
-            _context.Breakfasts.Add(obj);
-            _context.SaveChanges();
+            ViewBag.Message = breakfast.Message;
+            return View();
+
         }
-        //ModelState.Clear();
-        return View("Create");
+        return RedirectToAction("Index");
     }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
+    public IActionResult DeleteBreakfast(int id)
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        var breakfast = _breakfastservice.GetBreakfast(id);
+        return View(breakfast);
     }
+    [HttpPost]
+    public IActionResult Delete(int id)
+    {
+        var breakfast = _breakfastservice.DeleteBreakfast(id);
+        if (breakfast.Status == false)
+        {
+            ViewBag.Message = breakfast.Message;
+            return View();
+
+        }
+        return RedirectToAction("Index");
+    }
+
+
 }
 

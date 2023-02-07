@@ -38,13 +38,8 @@ namespace MGQSBreakfast.Implementation.Repository
         {
             var breakfast = GetById(id);
             _context.Breakfasts.Remove(breakfast);
+            _context.SaveChanges();
             return true;
-        }
-
-        public Breakfast FindBreakFast(int id)
-        {
-            var breakfast = _context.Breakfasts.Find(id);
-            return breakfast;
         }
 
         public List<Breakfast> GetAll()
@@ -60,7 +55,7 @@ namespace MGQSBreakfast.Implementation.Repository
 
         public Breakfast GetById(int id)
         {
-            var breakfast = _context.Breakfasts.SingleOrDefault(User => User.Id == id);
+            var breakfast = _context.Breakfasts.FirstOrDefault(User => User.Id == id);
             return breakfast;
         }
 
