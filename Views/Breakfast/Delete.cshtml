@@ -1,0 +1,31 @@
+@model MGQSBreakfast.Models.Response.BreakfastResponseModel;
+<div>
+    <dl>
+        <dd>
+            ID
+        </dd>
+        <dt>
+            @Model.Data.Id
+        </dt>
+        <dd>
+            Name
+        </dd>
+        <dt>
+            @Model.Data.Name
+        </dt>
+        <dd>
+            Description
+        </dd>
+        <dt>
+            @Model.Data.Description
+        </dt>
+    </dl>
+</div>
+<span>Are you sure you want to Delete this BreakFast?</span>
+<form asp-action="Delete" method="post" asp-route-id="@Model.Data.Id">
+    <button>Yes</button>
+</form>
+<br />
+<form asp-action="Index">
+    <button>No</button>
+</form>
